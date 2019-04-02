@@ -11,13 +11,21 @@ This module requires the following modules/libraries:
 * [Islandora](https://github.com/islandora/islandora)
 * [Tuque](https://github.com/islandora/tuque)
 
+For additional functionality, this module can take advantage of:
+
+* [Select or other](https://www.drupal.org/project/select_or_other)
+
 ## Installation
 
 Install as usual, see [this](https://drupal.org/documentation/install/modules-themes/modules-7) for further information.
 
 ## Configuration
 
-This module provides the ability to optionally allow a user to re-transform a MARCXML file to MODS after initial upload. This is configurable in Administration » Islandora » Islandora Utility Modules » Islandora MARCXML (admin/islandora/tools/islandora_marcxml).
+This module provides some configuration options as Administration » Islandora » Islandora Utility Modules » Islandora MARCXML (admin/islandora/tools/islandora_marcxml).
+
+* A checkbox to allow users to re-transform a MARCXML file to MODS after initial upload
+* Options to select which xslt transforms will be used when converting from MODS to MARC, and from MARC to MODS.
+* If the [select or other](https://www.drupal.org/project/select_or_other) module is installed and enabled, an additional xslt transform option is provided where the user may enter a path to the xslt transform file that they wish to use.
 
 Permissions to control who may _View MARCXML output_ are available at Administration » People » Permissions (admin/people/permissions).
 
