@@ -44,7 +44,7 @@ function islandora_marcxml_transform_mods_to_marcxml(AbstractObject $object) {
   $xslt = variable_get('islandora_marcxml_select_mods_to_marc_xsl', 'MODS3-4_MARC21slim_XSLT1-0.xsl');
   return islandora_marcxml_run_xsl_transform(array(
     'input' => $mods_str,
-    'xsl' => drupal_get_path('module', 'islandora_marcxml') . '/xsl/' . $xslt,
+    'xsl' => _islandora_marcxml_xslt_file_path($xslt),
   ));
 }
 
@@ -81,7 +81,7 @@ function islandora_marcxml_populate_mods(AbstractObject $object, $file) {
   $created = FALSE;
   $xslt = variable_get('islandora_marcxml_select_marc_to_mods_xsl', 'MARC21slim2MODS3-6.xsl');
   $transform_args = array(
-    'xsl' => drupal_get_path('module', 'islandora_marcxml') . '/xsl/' . $xslt,
+    'xsl' => _islandora_marcxml_xslt_file_path($xslt),
     'input' => file_get_contents($file->uri),
   );
   $transformed_xml = trim(islandora_marcxml_run_xsl_transform($transform_args));
@@ -115,4 +115,19 @@ function islandora_marcxml_view(AbstractObject $object) {
       '#markup' => islandora_marcxml_transform_marc_to_html($object),
     ),
   );
+}
+
+/**
+ * Attempts to figure out the path to the xslt file.
+ *
+ * @param $xslt
+ *   either the name of an xslt file provided by this module
+ *   or a path to a user-provided file under the drupal root
+ *
+ * @return string
+ */
+function _islandora_marcxml_xslt_file_path($xslt) {
+  return file_exists(DRUPAL_ROOT . '/' . $xslt) ?
+    DRUPAL_ROOT . '/' . $xslt :
+    drupal_get_path('module', 'islandora_marcxml') . '/xsl/' . $xslt;
 }
